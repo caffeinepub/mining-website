@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
-import { Pickaxe, Play } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function MiningPanel() {
@@ -15,10 +15,11 @@ export default function MiningPanel() {
     const durationDays = BigInt(duration);
     startMining(durationDays, {
       onSuccess: (message) => {
-        toast.success(message);
+        toast.success(message || 'Mining started successfully!');
+        setDuration('1'); // Reset to default after successful start
       },
       onError: (error) => {
-        toast.error('Failed to start mining: ' + error.message);
+        toast.error(error.message || 'Failed to start mining');
       },
     });
   };

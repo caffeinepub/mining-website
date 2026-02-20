@@ -41,16 +41,16 @@ export default function MiningStatus({ tasks }: MiningStatusProps) {
           const hoursElapsed = elapsed / (1000 * 60 * 60);
           const earnings = Math.min((hoursElapsed / 24) * 2, Number(task.duration) * 2);
 
-          const isActive = task.state === MiningState.active;
-          const isExpired = task.state === MiningState.expired;
+          const isActive = task.state === MiningState.active && progress < 100;
+          const isCompleted = progress >= 100 || task.state === MiningState.expired;
 
           return (
             <div key={id.toString()} className="space-y-3 p-4 rounded-lg border bg-card">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="font-medium">Task #{id.toString()}</span>
-                  <Badge variant={isActive ? 'default' : isExpired ? 'secondary' : 'outline'}>
-                    {isActive ? 'Active' : isExpired ? 'Completed' : 'Not Started'}
+                  <Badge variant={isActive ? 'default' : isCompleted ? 'secondary' : 'outline'}>
+                    {isActive ? 'Active' : isCompleted ? 'Completed' : 'Not Started'}
                   </Badge>
                 </div>
                 <div className="flex items-center gap-1 text-sm text-muted-foreground">

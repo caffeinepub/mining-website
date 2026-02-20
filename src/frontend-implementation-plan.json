@@ -1,248 +1,110 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Cryptocurrency Mining Platform Frontend Implementation",
+  "title": "Fix mining functionality, improve admin panel, and fix withdrawal system",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Implement user authentication UI with account creation and login functionality",
+      "id": "REQ-7",
+      "summary": "Fix the mining start button functionality to properly initiate mining tasks and update UI to reflect active mining status",
       "acceptanceCriteria": [
-        "Users can create new accounts with required fields",
-        "Users can log in with their credentials",
-        "Authentication state persists across sessions"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/LoginButton.tsx",
-          "operation": "create",
-          "description": "Create login/logout button component using Internet Identity authentication. Use the authorization component to handle authentication flows. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/ProfileSetupModal.tsx",
-          "operation": "create",
-          "description": "Create modal for first-time user profile setup that prompts for user name. Use the authorization component's getCallerUserProfile and saveCallerUserProfile methods. Show this modal only when user is authenticated but has no profile. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useGetCallerUserProfile.ts",
-          "operation": "create",
-          "description": "Create custom hook to fetch current user profile with proper loading states to prevent modal flash. Use the authorization component pattern for profile fetching. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useSaveCallerUserProfile.ts",
-          "operation": "create",
-          "description": "Create custom hook to save user profile using React Query mutation. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add authentication state checks, profile setup modal, and conditional rendering to show app content only when user is authenticated and has profile. Wire the LoginButton component into the main app layout."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Create TRC20 withdrawal interface with 20 USDT minimum limit and request tracking",
-      "acceptanceCriteria": [
-        "Withdrawal interface accepts TRC20 wallet addresses only",
-        "System enforces 20 USDT minimum withdrawal limit",
-        "Withdrawal requests are stored and tracked with status"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/WithdrawalForm.tsx",
-          "operation": "create",
-          "description": "Create withdrawal form with TRC20 wallet address input and amount field. Enforce 20 USDT minimum through form validation. Display TRC20 badge using frontend/public/assets/generated/trc20-badge.dim_128x128.png. Call requestWithdrawal backend method on submission. Show validation errors for invalid addresses or amounts below minimum."
-        },
-        {
-          "path": "frontend/src/components/WithdrawalHistory.tsx",
-          "operation": "create",
-          "description": "Create component to display user's withdrawal requests with status (pending, approved, rejected). Fetch data using getTransactions backend method. Show transaction ID, amount, wallet address, and current status for each withdrawal."
-        },
-        {
-          "path": "frontend/src/hooks/useRequestWithdrawal.ts",
-          "operation": "create",
-          "description": "Create mutation hook for submitting withdrawal requests using requestWithdrawal backend method. Handle success and error states."
-        },
-        {
-          "path": "frontend/src/hooks/useGetTransactions.ts",
-          "operation": "create",
-          "description": "Create query hook to fetch user's withdrawal transactions using getTransactions backend method."
-        },
-        {
-          "path": "frontend/src/pages/WithdrawalPage.tsx",
-          "operation": "create",
-          "description": "Create withdrawal page that combines WithdrawalForm and WithdrawalHistory components. Require user authentication and approval to access this page."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add route for /withdrawal page and include navigation link in the app menu/sidebar for authenticated users to access withdrawal functionality."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Build mining interface with automatic start functionality and earnings tracking at 2 USDT per day",
-      "acceptanceCriteria": [
-        "Mining start button triggers automatic mining process",
-        "Mining duration can be set between 1-5 days",
-        "System calculates and tracks earnings at 2 USDT per day rate",
-        "Mining runs automatically once started without manual intervention"
+        "Clicking the start mining button successfully creates a mining task in the backend",
+        "The UI immediately updates to show the mining task is active",
+        "The mining progress bar displays correctly after starting",
+        "No errors occur during the mining task creation process"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/MiningPanel.tsx",
-          "operation": "create",
-          "description": "Create mining control panel with start button and duration selector (1-5 days). Display mining icon using frontend/public/assets/generated/mining-icon.dim_256x256.png. Show current mining status, elapsed time, and calculated earnings (2 USDT per day). Call startMining backend method with selected duration. Display real-time countdown and earnings accumulation during active mining."
+          "operation": "modify",
+          "description": "Fix the start mining button click handler to properly call the backend startMining capability with the selected duration. Ensure proper error handling with user-friendly error messages using toast notifications. Add loading state management to prevent duplicate submissions. After successful mining task creation, invalidate the 'miningTasks' and 'userProfile' queries to trigger UI updates that reflect the new active mining status."
         },
         {
           "path": "frontend/src/components/MiningStatus.tsx",
-          "operation": "create",
-          "description": "Create component to display mining task details including start time, duration, current state, and earnings progress. Show visual progress bar for active mining tasks."
-        },
-        {
-          "path": "frontend/src/hooks/useStartMining.ts",
-          "operation": "create",
-          "description": "Create mutation hook for starting mining tasks using startMining backend method. Accept duration parameter (1-5 days)."
-        },
-        {
-          "path": "frontend/src/hooks/useGetMiningTasks.ts",
-          "operation": "create",
-          "description": "Create query hook to fetch user's mining tasks using getMiningTasks backend method. Enable polling to update active mining status in real-time."
-        },
-        {
-          "path": "frontend/src/pages/MiningPage.tsx",
-          "operation": "create",
-          "description": "Create mining page that combines MiningPanel and MiningStatus components. Show user's current balance from profile. Require user authentication and approval to access."
-        },
-        {
-          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Add route for /mining page and include navigation link to mining functionality in the app menu for authenticated users."
+          "description": "Enhance the mining status component to immediately reflect new mining tasks after creation. Ensure the progress bar calculations are accurate based on elapsed time. Add proper handling for the transition from 'active' to 'expired' mining states. Display clear visual feedback when mining tasks are in progress versus completed."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Review and fix the startMining mutation hook to ensure it properly handles the backend response, invalidates relevant queries (miningTasks, userProfile), and provides appropriate success/error feedback. Ensure the mutation optimistically updates or refetches data to provide immediate UI feedback."
         }
       ]
     },
     {
-      "id": "REQ-4",
-      "summary": "Create admin panel for managing withdrawal approvals and rejections",
+      "id": "REQ-8",
+      "summary": "Remove the 7-day mining duration option from the mining panel, keeping only 1-5 day duration options",
       "acceptanceCriteria": [
-        "Admin can view all pending withdrawal requests",
-        "Admin can approve withdrawal requests",
-        "Admin can reject withdrawal requests with reason",
-        "Users see updated withdrawal status after admin action"
+        "Mining panel only shows duration options from 1 to 5 days",
+        "No 7-day option is visible or selectable in the UI",
+        "All remaining duration options (1-5 days) function correctly"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/MiningPanel.tsx",
+          "operation": "modify",
+          "description": "Update the duration options array to only include values from 1 to 5 days. Remove any reference to a 7-day option. Ensure the radio button list correctly renders only the 1-5 day options with their corresponding earnings calculations (2 USDT per day)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Improve the admin panel implementation to ensure all withdrawal approval/rejection actions work reliably with proper feedback",
+      "acceptanceCriteria": [
+        "Admin can successfully approve withdrawal requests and the status updates correctly",
+        "Admin can successfully reject withdrawal requests with proper status updates",
+        "Clear success or error messages appear after each action",
+        "The withdrawal queue refreshes automatically after approve/reject actions",
+        "All admin controls are clearly visible and functional"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/AdminWithdrawalQueue.tsx",
-          "operation": "create",
-          "description": "Create admin component to display all withdrawal requests with user details, amounts, and wallet addresses. Fetch data using getAllTransactions backend method. Include approve and reject action buttons for each pending request. Use the authorization component to verify admin role. Verify the component's usage instructions before implementing."
+          "operation": "modify",
+          "description": "Fix the approve and reject withdrawal action handlers to properly call the backend approveWithdrawal and rejectWithdrawal capabilities. Ensure comprehensive error handling with clear toast notifications for both success and failure cases. After each action, invalidate the 'allTransactions' query to automatically refresh the withdrawal queue. Add loading states to action buttons to prevent duplicate submissions. Ensure the pending filter works correctly and the UI clearly displays the current status of each withdrawal request."
         },
         {
-          "path": "frontend/src/hooks/useGetAllTransactions.ts",
-          "operation": "create",
-          "description": "Create query hook to fetch all withdrawal transactions using getAllTransactions backend method (admin only)."
-        },
-        {
-          "path": "frontend/src/hooks/useApproveWithdrawal.ts",
-          "operation": "create",
-          "description": "Create mutation hook for approving withdrawals using approveWithdrawal backend method (admin only)."
-        },
-        {
-          "path": "frontend/src/hooks/useRejectWithdrawal.ts",
-          "operation": "create",
-          "description": "Create mutation hook for rejecting withdrawals using rejectWithdrawal backend method (admin only)."
-        },
-        {
-          "path": "frontend/src/components/AdminUserApprovalList.tsx",
-          "operation": "create",
-          "description": "Create admin component to display all users awaiting approval. Use the user-approval component's listApprovals method. Show approve/reject actions for each pending user. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useListApprovals.ts",
-          "operation": "create",
-          "description": "Create query hook to fetch user approval list using listApprovals backend method (admin only). Use the user-approval component. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useSetApproval.ts",
-          "operation": "create",
-          "description": "Create mutation hook for setting user approval status using setApproval backend method (admin only). Use the user-approval component. Verify the component's usage instructions before implementing."
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Review and enhance the approve and reject withdrawal mutation hooks. Ensure they properly handle backend responses, provide appropriate error messages, and trigger query invalidation for both 'allTransactions' and 'transactions' to update both admin and user views. Add optimistic updates or immediate refetch strategies for better UX."
         },
         {
           "path": "frontend/src/pages/AdminDashboard.tsx",
-          "operation": "create",
-          "description": "Create admin dashboard page that combines AdminWithdrawalQueue and AdminUserApprovalList components. Add tabs or sections for withdrawal management and user approval management. Guard access to admins only using the authorization component. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Add route for /admin page and include conditional navigation link visible only to admin users in the app menu."
+          "description": "Ensure the admin dashboard properly integrates the AdminWithdrawalQueue component with clear tab navigation. Verify that the admin access control check using the authorization component is working correctly and displays an appropriate access denied message for non-admin users. Ensure the page layout provides clear visibility of all admin controls."
         }
       ]
     },
     {
-      "id": "REQ-5",
-      "summary": "Integrate Telegram channel follow flow with 1.5 USDT bonus reward",
+      "id": "REQ-10",
+      "summary": "Fix the withdrawal system to ensure withdrawal requests are properly created, processed, and displayed with correct status updates",
       "acceptanceCriteria": [
-        "Telegram channel link is prominently displayed with follow prompt",
-        "System awards 1.5 USDT bonus to user account after following confirmation",
-        "Bonus is added to user's mining balance"
+        "Users can successfully submit withdrawal requests with valid TRC20 addresses",
+        "Withdrawal requests appear in both user withdrawal history and admin queue",
+        "Withdrawal status updates correctly when approved or rejected by admin",
+        "User balance is properly deducted when withdrawal is approved",
+        "Minimum 20 USDT validation works correctly",
+        "Error messages display clearly when withdrawals fail validation"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/TelegramFollowCard.tsx",
-          "operation": "create",
-          "description": "Create card component that displays Telegram channel link (https://t.me/Goldhunterfx345) with call-to-action button. Show 1.5 USDT bonus incentive. Include external link button to open Telegram channel and confirmation button to claim bonus. Call linkTelegram backend method after user confirms following. Hide card once user has already followed (check telegramFollowed in profile)."
-        },
-        {
-          "path": "frontend/src/hooks/useLinkTelegram.ts",
-          "operation": "create",
-          "description": "Create mutation hook for confirming Telegram follow using linkTelegram backend method. Invalidate user profile query after successful claim to refresh balance."
-        },
-        {
-          "path": "frontend/src/pages/DashboardPage.tsx",
-          "operation": "create",
-          "description": "Create main dashboard page that displays user balance, mining summary, and TelegramFollowCard (if not yet followed). Show quick access links to mining and withdrawal pages. This serves as the landing page after authentication."
-        },
-        {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/components/WithdrawalForm.tsx",
           "operation": "modify",
-          "description": "Add route for /dashboard and set it as the default authenticated route. Include navigation link to dashboard in app menu."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Design professional landing page with cryptocurrency mining themed background",
-      "acceptanceCriteria": [
-        "Landing page has professional cryptocurrency/mining themed design",
-        "Background uses high-quality imagery that looks authentic",
-        "Layout is clear and guides users to main actions (sign up, start mining)"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/LandingHero.tsx",
-          "operation": "create",
-          "description": "Create hero section component for landing page with headline, subheadline, and call-to-action buttons (Login/Get Started). Use frontend/public/assets/generated/hero-bg.dim_1920x1080.png as the background image with overlay for text readability. Include project name 'Crypto Mining Hub' prominently in the hero text."
+          "description": "Fix the withdrawal request submission handler to properly call the backend requestWithdrawal capability with the TRC20 wallet address and amount. Ensure robust validation for minimum 20 USDT amount and sufficient balance before submission. Improve error handling to display clear, user-friendly error messages via toast notifications. After successful submission, invalidate 'transactions' and 'userProfile' queries to update the withdrawal history and balance display. Add loading state to prevent duplicate submissions."
         },
         {
-          "path": "frontend/src/components/FeatureSection.tsx",
-          "operation": "create",
-          "description": "Create features section highlighting key platform capabilities: automatic mining (2 USDT/day), TRC20 withdrawals (20 USDT min), and Telegram bonus (1.5 USDT). Use card layout with icons and descriptions."
-        },
-        {
-          "path": "frontend/src/pages/LandingPage.tsx",
-          "operation": "create",
-          "description": "Create landing page that combines LandingHero and FeatureSection components. Display this page for unauthenticated users. Include LoginButton in header."
-        },
-        {
-          "path": "frontend/src/index.css",
+          "path": "frontend/src/components/WithdrawalHistory.tsx",
           "operation": "modify",
-          "description": "Add global theme styling for cryptocurrency/mining aesthetic using dark color scheme with accent colors (blue, green, cyan). Define typography styles, spacing utilities, and ensure responsive design foundations."
+          "description": "Ensure the withdrawal history component properly displays all user transactions with accurate status badges (pending, approved, rejected). Verify that the component refreshes when new withdrawals are submitted or when existing withdrawals are approved/rejected by admins. Improve the visual presentation of transaction details including amount, wallet address, and timestamp if available."
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Set LandingPage as the root route for unauthenticated users. Add conditional routing to show LandingPage when not authenticated and DashboardPage when authenticated. Implement main app layout with header, navigation, and content area."
+          "description": "Review and fix the requestWithdrawal mutation hook to ensure proper backend integration, error handling, and query invalidation. Ensure it invalidates both 'transactions' (for user view) and 'allTransactions' (for admin view) after successful submission. Add proper TypeScript typing for the withdrawal request parameters and backend response."
+        },
+        {
+          "path": "frontend/src/pages/WithdrawalPage.tsx",
+          "operation": "modify",
+          "description": "Verify the withdrawal page properly integrates the WithdrawalForm and WithdrawalHistory components. Ensure the alert message about the 20 USDT minimum and TRC20 network requirement is clearly visible. Verify the page layout provides good user experience with proper spacing and visual hierarchy."
         }
       ]
     }

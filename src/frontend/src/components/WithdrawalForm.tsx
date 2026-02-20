@@ -40,12 +40,12 @@ export default function WithdrawalForm() {
       { walletAddress: walletAddress.trim(), amount: amountBigInt },
       {
         onSuccess: (message) => {
-          toast.success(message);
+          toast.success(message || 'Withdrawal request submitted successfully!');
           setWalletAddress('');
           setAmount('');
         },
         onError: (error) => {
-          toast.error('Withdrawal request failed: ' + error.message);
+          toast.error(error.message || 'Withdrawal request failed');
         },
       }
     );
@@ -99,7 +99,14 @@ export default function WithdrawalForm() {
           </div>
 
           <Button type="submit" disabled={isPending} className="w-full">
-            {isPending ? 'Processing...' : 'Request Withdrawal'}
+            {isPending ? (
+              <>
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent mr-2"></div>
+                Processing...
+              </>
+            ) : (
+              'Request Withdrawal'
+            )}
           </Button>
         </form>
       </CardContent>

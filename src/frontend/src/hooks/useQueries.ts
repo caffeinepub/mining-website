@@ -112,10 +112,18 @@ export function useRequestWithdrawal() {
   return useMutation({
     mutationFn: async ({ walletAddress, amount }: { walletAddress: string; amount: bigint }) => {
       if (!actor) throw new Error('Actor not available');
-      return actor.requestWithdrawal(walletAddress, amount);
+      const result = await actor.requestWithdrawal(walletAddress, amount);
+      
+      // Check if the result indicates an error
+      if (result.includes('Minimum withdrawal') || result.includes('Insufficient balance') || result.includes('not found')) {
+        throw new Error(result);
+      }
+      
+      return result;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      queryClient.invalidateQueries({ queryKey: ['allTransactions'] });
       queryClient.invalidateQueries({ queryKey: ['balances'] });
       queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] });
     },
@@ -148,6 +156,7 @@ export function useStartMining() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['miningTasks'] });
       queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] });
+      queryClient.invalidateQueries({ queryKey: ['balances'] });
     },
   });
 }
@@ -202,10 +211,19 @@ export function useApproveWithdrawal() {
   return useMutation({
     mutationFn: async (transactionId: bigint) => {
       if (!actor) throw new Error('Actor not available');
-      return actor.approveWithdrawal(transactionId);
+      const result = await actor.approveWithdrawal(transactionId);
+      
+      // Check if the result indicates an error
+      if (result.includes('not found') || result.includes('not pending')) {
+        throw new Error(result);
+      }
+      
+      return result;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['allTransactions'] });
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      queryClient.invalidateQueries({ queryKey: ['allUserProfiles'] });
     },
   });
 }
@@ -217,10 +235,18 @@ export function useRejectWithdrawal() {
   return useMutation({
     mutationFn: async (transactionId: bigint) => {
       if (!actor) throw new Error('Actor not available');
-      return actor.rejectWithdrawal(transactionId);
+      const result = await actor.rejectWithdrawal(transactionId);
+      
+      // Check if the result indicates an error
+      if (result.includes('not found') || result.includes('not pending')) {
+        throw new Error(result);
+      }
+      
+      return result;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['allTransactions'] });
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
     },
   });
 }

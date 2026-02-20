@@ -41,6 +41,9 @@ export default function WithdrawalHistory() {
     );
   }
 
+  // Sort transactions by ID in descending order (newest first)
+  const sortedTransactions = [...transactions].sort((a, b) => Number(b[0]) - Number(a[0]));
+
   return (
     <Card>
       <CardHeader>
@@ -50,7 +53,7 @@ export default function WithdrawalHistory() {
       <CardContent>
         <ScrollArea className="h-[400px] pr-4">
           <div className="space-y-4">
-            {transactions.map(([id, tx]) => {
+            {sortedTransactions.map(([id, tx]) => {
               const amount = Number(tx.amount) / 10;
               const isPending = tx.state === TransactionState.pending;
               const isApproved = tx.state === TransactionState.approved;

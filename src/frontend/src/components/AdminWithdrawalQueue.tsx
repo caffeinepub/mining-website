@@ -6,30 +6,38 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { CheckCircle, XCircle, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 import { TransactionState } from '../backend';
+import { useState } from 'react';
 
 export default function AdminWithdrawalQueue() {
   const { data: transactions, isLoading } = useGetAllTransactions();
-  const { mutate: approveWithdrawal, isPending: isApproving } = useApproveWithdrawal();
-  const { mutate: rejectWithdrawal, isPending: isRejecting } = useRejectWithdrawal();
+  const { mutate: approveWithdrawal } = useApproveWithdrawal();
+  const { mutate: rejectWithdrawal } = useRejectWithdrawal();
+  const [processingId, setProcessingId] = useState<bigint | null>(null);
 
   const handleApprove = (id: bigint) => {
+    setProcessingId(id);
     approveWithdrawal(id, {
       onSuccess: (message) => {
-        toast.success(message);
+        toast.success(message || 'Withdrawal approved successfully!');
+        setProcessingId(null);
       },
       onError: (error) => {
-        toast.error('Failed to approve: ' + error.message);
+        toast.error(error.message || 'Failed to approve withdrawal');
+        setProcessingId(null);
       },
     });
   };
 
   const handleReject = (id: bigint) => {
+    setProcessingId(id);
     rejectWithdrawal(id, {
       onSuccess: (message) => {
-        toast.success(message);
+        toast.success(message || 'Withdrawal rejected successfully!');
+        setProcessingId(null);
       },
       onError: (error) => {
-        toast.error('Failed to reject: ' + error.message);
+        toast.error(error.message || 'Failed to reject withdrawal');
+        setProcessingId(null);
       },
     });
   };
@@ -61,74 +69,85 @@ export default function AdminWithdrawalQueue() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        {pendingTransactions.length === 0 ? (
+        {transactions && transactions.length === 0 ? (
+          <div className="text-center py-8 text-muted-foreground">
+            <Clock className="h-12 w-12 mx-auto mb-3 opacity-50" />
+            <p>No withdrawal requests yet</p>
+          </div>
+        ) : pendingTransactions.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
             <Clock className="h-12 w-12 mx-auto mb-3 opacity-50" />
             <p>No pending withdrawals</p>
           </div>
         ) : (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>ID</TableHead>
-                <TableHead>User</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>Wallet</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {transactions?.map(([id, tx]) => {
-                const amount = Number(tx.amount) / 10;
-                const isPending = tx.state === TransactionState.pending;
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>ID</TableHead>
+                  <TableHead>User</TableHead>
+                  <TableHead>Amount</TableHead>
+                  <TableHead>Wallet</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {pendingTransactions.map(([id, tx]) => {
+                  const amount = Number(tx.amount) / 10;
+                  const isProcessing = processingId?.toString() === id.toString();
 
-                return (
-                  <TableRow key={id.toString()}>
-                    <TableCell className="font-medium">#{id.toString()}</TableCell>
-                    <TableCell className="font-mono text-xs">
-                      {tx.user.toString().slice(0, 8)}...
-                    </TableCell>
-                    <TableCell className="font-bold">{amount.toFixed(2)} USDT</TableCell>
-                    <TableCell className="font-mono text-xs max-w-[200px] truncate">
-                      {tx.toWallet}
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={isPending ? 'outline' : tx.state === TransactionState.approved ? 'default' : 'destructive'}>
-                        {tx.state === TransactionState.pending && 'Pending'}
-                        {tx.state === TransactionState.approved && 'Approved'}
-                        {tx.state === TransactionState.rejected && 'Rejected'}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      {isPending && (
+                  return (
+                    <TableRow key={id.toString()}>
+                      <TableCell className="font-medium">#{id.toString()}</TableCell>
+                      <TableCell className="font-mono text-xs">
+                        {tx.user.toString().slice(0, 8)}...
+                      </TableCell>
+                      <TableCell className="font-bold">{amount.toFixed(2)} USDT</TableCell>
+                      <TableCell className="font-mono text-xs max-w-[200px] truncate">
+                        {tx.toWallet}
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline">
+                          Pending
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
                         <div className="flex gap-2">
                           <Button
                             size="sm"
                             variant="default"
                             onClick={() => handleApprove(id)}
-                            disabled={isApproving || isRejecting}
+                            disabled={isProcessing}
                           >
-                            <CheckCircle className="h-3 w-3 mr-1" />
+                            {isProcessing ? (
+                              <div className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent mr-1"></div>
+                            ) : (
+                              <CheckCircle className="h-3 w-3 mr-1" />
+                            )}
                             Approve
                           </Button>
                           <Button
                             size="sm"
                             variant="destructive"
                             onClick={() => handleReject(id)}
-                            disabled={isApproving || isRejecting}
+                            disabled={isProcessing}
                           >
-                            <XCircle className="h-3 w-3 mr-1" />
+                            {isProcessing ? (
+                              <div className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent mr-1"></div>
+                            ) : (
+                              <XCircle className="h-3 w-3 mr-1" />
+                            )}
                             Reject
                           </Button>
                         </div>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </div>
         )}
       </CardContent>
     </Card>
