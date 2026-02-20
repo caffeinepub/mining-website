@@ -1,0 +1,140 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-user-authentication-system-with-account-creation-and-login-functionality",
+      "featureTitle": "Create user authentication system with account creation and login functionality",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/LoginButton.tsx",
+        "frontend/src/components/ProfileSetupModal.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-trc20-binance-withdrawal-system-with-20-usdt-minimum-withdrawal-amount",
+      "featureTitle": "Implement TRC20 (Binance) withdrawal system with 20 USDT minimum withdrawal amount",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/WithdrawalForm.tsx",
+        "frontend/src/components/WithdrawalHistory.tsx",
+        "frontend/src/pages/WithdrawalPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-mining-interface-with-start-button-that-initiates-automatic-mining-for-1-5-day-duration-with-2-usdt-daily-earnings-calculated-at-2-usdt-per-24-hours",
+      "featureTitle": "Build mining interface with start button that initiates automatic mining for 1-5 day duration with 2 USDT daily earnings calculated at 2 USDT per 24 hours",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/MiningPanel.tsx",
+        "frontend/src/components/MiningStatus.tsx",
+        "frontend/src/pages/MiningPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-admin-panel-with-ability-to-approve-or-reject-withdrawal-requests",
+      "featureTitle": "Create admin panel with ability to approve or reject withdrawal requests",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AdminUserApprovalList.tsx",
+        "frontend/src/components/AdminWithdrawalQueue.tsx",
+        "frontend/src/pages/AdminDashboard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-integrate-telegram-channel-link-https-t-me-goldhunterfx345-and-implement-1-5-usdt-bonus-system-for-users-who-follow-the-channel",
+      "featureTitle": "Integrate Telegram channel link https://t.me/Goldhunterfx345 and implement 1.5 USDT bonus system for users who follow the channel",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/TelegramFollowCard.tsx",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-design-professional-landing-page-with-visually-appealing-background-suitable-for-cryptocurrency-mining-theme",
+      "featureTitle": "Design professional landing page with visually appealing background suitable for cryptocurrency mining theme",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

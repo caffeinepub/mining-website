@@ -1,0 +1,22 @@
+{
+  "frontend/src/App.tsx": "Main application component with routing, authentication flow, profile setup modal, and approval status checks, importing all hooks from useQueries.ts.",
+  "frontend/src/hooks/useQueries.ts": "Custom React Query hooks for all backend operations including user profiles, mining tasks, withdrawals, admin functions, and Telegram integration.",
+  "frontend/src/components/LoginButton.tsx": "Login/logout button component using Internet Identity authentication with loading states and error handling.",
+  "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup that prompts for user name and creates initial profile.",
+  "frontend/src/components/Header.tsx": "Application header with navigation menu, logo, and login button that adapts based on authentication and admin status.",
+  "frontend/src/components/Footer.tsx": "Footer component with copyright, Telegram link, and caffeine.ai attribution with UTM tracking.",
+  "frontend/src/pages/LandingPage.tsx": "Landing page with hero section, feature cards, and call-to-action for unauthenticated users showcasing mining platform benefits.",
+  "frontend/src/pages/DashboardPage.tsx": "Main dashboard displaying user balance, active mining tasks, earnings summary, and quick access to mining and withdrawal features.",
+  "frontend/src/pages/MiningPage.tsx": "Mining page with mining panel for starting new tasks and status display showing active mining progress.",
+  "frontend/src/pages/WithdrawalPage.tsx": "Withdrawal page combining withdrawal form and transaction history with TRC20 network information.",
+  "frontend/src/pages/AdminDashboard.tsx": "Admin dashboard with tabs for managing withdrawal approvals and user access requests, restricted to admin users only.",
+  "frontend/src/components/TelegramFollowCard.tsx": "Card component displaying Telegram channel link with 1.5 USDT bonus incentive and claim functionality.",
+  "frontend/src/components/MiningPanel.tsx": "Mining control panel with duration selector (1-5 days), earnings calculator, and start mining button.",
+  "frontend/src/components/MiningStatus.tsx": "Component displaying all mining tasks with progress bars, earnings tracking, and status badges.",
+  "frontend/src/components/WithdrawalForm.tsx": "Form for requesting TRC20 withdrawals with wallet address input, amount validation, and 20 USDT minimum enforcement.",
+  "frontend/src/components/WithdrawalHistory.tsx": "Scrollable list of user's withdrawal requests showing transaction ID, amount, wallet address, and approval status.",
+  "frontend/src/components/AdminWithdrawalQueue.tsx": "Admin component for viewing and managing all withdrawal requests with approve/reject actions.",
+  "frontend/src/components/AdminUserApprovalList.tsx": "Admin component for managing user approval requests with approve/reject functionality.",
+  "frontend/src/index.css": "Global styles with OKLCH color system for dark cryptocurrency mining theme with blue/cyan accent colors.",
+  "frontend/tailwind.config.js": "Tailwind configuration with extended color palette, custom border radius, and Inter font family for modern aesthetic."
+}

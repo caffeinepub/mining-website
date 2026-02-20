@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Cryptocurrency mining website with TRC20 (Binance) withdrawal system, user authentication, mining automation with 2 USDT daily earnings, and admin approval/rejection controls",
+  "architectural_notes": [
+    "TRC20 (Tron network) for cryptocurrency transactions",
+    "Mining simulation with configurable daily earnings (2 USDT/day)",
+    "Admin-controlled withdrawal approval workflow",
+    "Telegram API integration for bonus rewards"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Professional cryptocurrency mining themed hero background with blockchain network visualization and modern tech aesthetic (hero-bg.dim_1920x1080.png)\n- Cryptocurrency mining icon with circuit board pattern and digital coin design (mining-icon.dim_256x256.png)\n- TRC20 Binance logo badge for withdrawal section (trc20-badge.dim_128x128.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-user-authentication-system-with-account-creation-and-login-functionality",
+      "title": "Create user authentication system with account creation and login functionality",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-trc20-binance-withdrawal-system-with-20-usdt-minimum-withdrawal-amount",
+      "title": "Implement TRC20 (Binance) withdrawal system with 20 USDT minimum withdrawal amount",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-mining-interface-with-start-button-that-initiates-automatic-mining-for-1-5-day-duration-with-2-usdt-daily-earnings-calculated-at-2-usdt-per-24-hours",
+      "title": "Build mining interface with start button that initiates automatic mining for 1-5 day duration with 2 USDT daily earnings calculated at 2 USDT per 24 hours",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-admin-panel-with-ability-to-approve-or-reject-withdrawal-requests",
+      "title": "Create admin panel with ability to approve or reject withdrawal requests",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-telegram-channel-link-https-t-me-goldhunterfx345-and-implement-1-5-usdt-bonus-system-for-users-who-follow-the-channel",
+      "title": "Integrate Telegram channel link https://t.me/Goldhunterfx345 and implement 1.5 USDT bonus system for users who follow the channel",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-professional-landing-page-with-visually-appealing-background-suitable-for-cryptocurrency-mining-theme",
+      "title": "Design professional landing page with visually appealing background suitable for cryptocurrency mining theme",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "User authentication system with account creation and login",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "TRC20 (Binance) withdrawal system with 20 USDT minimum",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Mining interface with start button and automatic mining (1-5 days duration, 2 USDT daily earnings)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Admin panel for approving/rejecting withdrawals",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Telegram channel integration with bonus system (1.5 USDT bonus for following)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Professional landing page with real-looking background",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Mining Website",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

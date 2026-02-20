@@ -1,0 +1,144 @@
+{
+  "kind": "build_request",
+  "title": "Build cryptocurrency mining platform with TRC20 withdrawals and admin controls",
+  "projectName": "Crypto Mining Hub",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create user authentication system with account creation and login functionality",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "scount create account"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can create new accounts with required fields",
+        "Users can log in with their credentials",
+        "Authentication state persists across sessions"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement TRC20 (Binance) withdrawal system with 20 USDT minimum withdrawal amount",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "add withdrwa only binince only this trc20 oly",
+          "add 20 usdt minimum"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Withdrawal interface accepts TRC20 wallet addresses only",
+        "System enforces 20 USDT minimum withdrawal limit",
+        "Withdrawal requests are stored and tracked with status"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build mining interface with start button that initiates automatic mining for 1-5 day duration with 2 USDT daily earnings calculated at 2 USDT per 24 hours",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "tmine 1 to 5 dayas",
+          "day earing is 2 usdt her 1 ghanti bad mine kare",
+          "strat mining botton ad automatic strat mining"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Mining start button triggers automatic mining process",
+        "Mining duration can be set between 1-5 days",
+        "System calculates and tracks earnings at 2 USDT per day rate",
+        "Mining runs automatically once started without manual intervention"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Create admin panel with ability to approve or reject withdrawal requests",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "add a me approv and rejact withdrwa iam oner"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin can view all pending withdrawal requests",
+        "Admin can approve withdrawal requests",
+        "Admin can reject withdrawal requests with reason",
+        "Users see updated withdrawal status after admin action"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Integrate Telegram channel link https://t.me/Goldhunterfx345 and implement 1.5 USDT bonus system for users who follow the channel",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "follow my telgram channel https://t.me/Goldhunterfx345 uska bad main bouns mili 1.5 usdt"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Telegram channel link is prominently displayed with follow prompt",
+        "System awards 1.5 USDT bonus to user account after following confirmation",
+        "Bonus is added to user's mining balance"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Design professional landing page with visually appealing background suitable for cryptocurrency mining theme",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "add first look",
+          "backgourd is real"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Landing page has professional cryptocurrency/mining themed design",
+        "Background uses high-quality imagery that looks authentic",
+        "Layout is clear and guides users to main actions (sign up, start mining)"
+      ]
+    }
+  ],
+  "constraints": [
+    "Withdrawal system must support TRC20 (Binance) network only",
+    "Minimum withdrawal amount must be exactly 20 USDT",
+    "Mining earnings rate must be fixed at 2 USDT per day",
+    "Mining duration must be limited to 1-5 days range",
+    "Telegram channel link must be https://t.me/Goldhunterfx345"
+  ],
+  "nonGoals": [
+    "Support for other cryptocurrencies besides USDT",
+    "Support for other blockchain networks besides TRC20",
+    "Real cryptocurrency transactions or blockchain integration",
+    "Automated Telegram follow verification",
+    "Real mining calculations or proof-of-work"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Professional cryptocurrency mining themed hero background with blockchain network visualization and modern tech aesthetic (hero-bg.dim_1920x1080.png)",
+      "Cryptocurrency mining icon with circuit board pattern and digital coin design (mining-icon.dim_256x256.png)",
+      "TRC20 Binance logo badge for withdrawal section (trc20-badge.dim_128x128.png)"
+    ],
+    "edits": []
+  }
+}
